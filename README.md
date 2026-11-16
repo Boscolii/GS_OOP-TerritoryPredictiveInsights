@@ -23,8 +23,6 @@ Use Java 21 e execute `./mvnw.cmd spring-boot:run` no Windows. O menu é de cons
 
 ## Divisão de tarefas
 
-Substituam os campos abaixo pelos nomes reais antes da entrega.
-
 | Integrante | Responsabilidade |
 | --- | --- |
 | Joao Henrique | Domínio, abstrações, sensores e exceções. |
@@ -37,4 +35,4 @@ Uma previsão não deve ser apresentada como confiável com pouco histórico: um
 
 ## Uso de IA
 
-IA foi utilizada como apoio técnico durante o desenvolvimento, para esclarecer conceitos de Java, Spring Boot, JPA, padrões de projeto, testes unitários e organização da estrutura do projeto. Também auxiliou na análise de mensagens de erro, na consulta de exemplos de implementação e na revisão da documentação. As decisões de modelagem e a integração das funcionalidades foram definidas pela equipe.
+IA foi utilizada como apoio técnico durante o desenvolvimento, para esclarecer conceitos de Java, Spring Boot, JPA, padrões de projeto, testes unitários e organização da estrutura do projeto. Também auxiliou na análise de mensagens de

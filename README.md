@@ -33,6 +33,12 @@ Use Java 21 e execute `./mvnw.cmd spring-boot:run` no Windows. O menu é de cons
 
 Uma previsão não deve ser apresentada como confiável com pouco histórico: uma ou duas medições não descrevem uma tendência. Além disso, cada sensor observa apenas seu ponto; falhas de comunicação, localização e frequência das leituras limitam a representação da região inteira. Por isso, o sistema explica o valor previsto e o limite ultrapassado, mas deixa a decisão com as pessoas responsáveis, que devem considerar o contexto local e os protocolos de emergência.
 
+Com menos de cinco leituras, o menu avisa que a base histórica é pequena. O sistema ainda apresenta o cálculo para fins didáticos, mas esse aviso impede que o número seja confundido com uma previsão confiável. Se não houver nenhuma leitura, ele informa que o histórico está vazio. Também seria necessário verificar a atualidade e o funcionamento dos sensores antes de usar informações em uma decisão real.
+
+Os dados simulados não descrevem diferenças entre ruas, drenagem, topografia, ocupação ou condições de acesso. Um sensor isolado não representa toda a região e uma média pode esconder mudanças rápidas. A comparação das últimas leituras é uma extrapolação simples, que pode resultar em valores fora da faixa física. Chuva é apresentada em milímetros por leitura, nível do rio em metros e umidade em porcentagem; essas unidades e intervalos são convenções da simulação, sem calibração para uma estação real.
+
+O alerta é um sinal para investigação, não uma ordem de evacuação ou prova de que ocorrerá um alagamento. Responsáveis devem combinar as leituras com dados oficiais, observações no território e protocolos locais, avaliando tanto falsos alarmes quanto riscos não detectados. Os limiares usados no exercício são ilustrativos, não substituem critérios técnicos estabelecidos para o local.
+
 ## Uso de IA
 
 IA foi utilizada para gerar e organizar partes do código e da documentação, além de auxiliar na análise de erros, na configuração do projeto e na execução dos testes.

@@ -118,7 +118,20 @@ public class MenuConsole {
 
         double previsao = servico.prever(sensor.retornarTipo(), estrategia);
 
-        System.out.printf("Previsão: %.2f%n", previsao);
+        String unidade = switch (sensor.retornarTipo()) {
+            case "CHUVA" -> "mm por leitura";
+            case "NIVEL_RIO" -> "metros";
+            case "UMIDADE_SOLO" -> "%";
+            default -> throw new DadosInvalidosException("Sensor desconhecido.");
+        };
+        ConfiguracaoSistema.Limiares limites = ConfiguracaoSistema.getInstancia().getLimiares(sensor.retornarTipo());
+        String situacao = previsao >= limites.critico() ? "nível crítico" :
+                previsao >= limites.alerta() ? "nível de alerta" :
+                previsao >= limites.atencao() ? "nível de atenção" : "abaixo dos limiares";
+        System.out.printf("Previsão para %s: %.2f %s (%s).%n", sensor.retornarTipo(), previsao, unidade, situacao);
+        if (servico.historico(sensor.retornarTipo()).size() < 5) {
+            System.out.println("Atenção: menos de cinco leituras; o resultado tem pouca base histórica.");
+        }
     }
 
     private void historico() {

@@ -12,7 +12,7 @@ Use Java 21 e execute `./mvnw.cmd spring-boot:run` no Windows. O menu é de cons
 - Exceções próprias para dados inválidos e fonte indisponível, com tratamento no menu.
 - Entidades JPA `Medicao` e `Alerta`, repositórios Spring Data JPA e histórico persistido.
 - Factory (`FabricaPrevisao`) para selecionar estratégias sem `if` espalhado e Singleton (`ConfiguracaoSistema`) para limiares.
-- Cinco testes JUnit, incluindo `assertThrows` e Mockito no repositório.
+- Oito testes JUnit, incluindo `assertThrows` e Mockito para verificar a emissão de alerta sem banco.
 
 ## Decisões da equipe
 
@@ -36,3 +36,5 @@ Uma previsão não deve ser apresentada como confiável com pouco histórico: um
 ## Uso de IA
 
 IA foi utilizada para gerar e organizar partes do código e da documentação, além de auxiliar na análise de erros, na configuração do projeto e na execução dos testes.
+
+O resultado foi conferido por meio da compilação, dos testes automatizados e da execução do menu. Os limiares são valores demonstrativos, não critérios oficiais de risco; ficam em memória e retornam aos padrões ao reiniciar. Eles devem ser calibrados por especialistas antes de qualquer uso real.

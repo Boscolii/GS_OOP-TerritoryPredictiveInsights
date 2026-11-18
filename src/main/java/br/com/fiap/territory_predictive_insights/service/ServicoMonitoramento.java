@@ -15,9 +15,12 @@ public class ServicoMonitoramento {
         emitirAlerta(tipoSensor, previsto); return previsto;
     }
     private void emitirAlerta(String tipo, double valor) {
-        ConfiguracaoSistema c = ConfiguracaoSistema.getInstancia();
-        NivelAlerta nivel = valor >= c.getCritico() ? NivelAlerta.CRITICO : valor >= c.getAlerta() ? NivelAlerta.ALERTA : valor >= c.getAtencao() ? NivelAlerta.ATENCAO : null;
-        if (nivel != null) alertas.save(new Alerta(tipo, valor, nivel, "Previsão " + valor + " ultrapassou o limite " + nivel));
+        ConfiguracaoSistema.Limiares c = ConfiguracaoSistema.getInstancia().getLimiares(tipo);
+        NivelAlerta nivel = valor >= c.critico() ? NivelAlerta.CRITICO : valor >= c.alerta() ? NivelAlerta.ALERTA : valor >= c.atencao() ? NivelAlerta.ATENCAO : null;
+        if (nivel != null) {
+            double limite = switch (nivel) { case CRITICO -> c.critico(); case ALERTA -> c.alerta(); case ATENCAO -> c.atencao(); };
+            alertas.save(new Alerta(tipo, valor, nivel, "Sensor " + tipo + ": previsão " + valor + " atingiu o limite " + nivel + " (" + limite + ")"));
+        }
     }
     public List<Medicao> historico(String tipoSensor) { return medicoes.findByTipoSensorOrderByDataHoraAsc(tipoSensor); }
     public List<Alerta> listarAlertas() { return alertas.findAll(); }

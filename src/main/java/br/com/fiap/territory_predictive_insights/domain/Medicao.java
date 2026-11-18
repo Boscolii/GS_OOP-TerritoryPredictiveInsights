@@ -12,7 +12,13 @@ public class Medicao {
     private LocalDateTime dataHora;
     protected Medicao() { }
     public Medicao(String tipoSensor, double valor) {
-        if (valor < 0) throw new DadosInvalidosException("Medição não pode ser negativa.");
+        double maximo = switch (tipoSensor == null ? "" : tipoSensor) {
+            case "CHUVA" -> 120;
+            case "NIVEL_RIO" -> 5;
+            case "UMIDADE_SOLO" -> 100;
+            default -> throw new DadosInvalidosException("Tipo de sensor inválido.");
+        };
+        if (!Double.isFinite(valor) || valor < 0 || valor > maximo) throw new DadosInvalidosException("Medição fora da faixa de " + tipoSensor + ".");
         this.tipoSensor = tipoSensor; this.valor = valor; this.dataHora = LocalDateTime.now();
     }
     public Long getId() { return id; } public String getTipoSensor() { return tipoSensor; }

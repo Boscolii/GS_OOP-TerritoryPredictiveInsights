@@ -155,6 +155,7 @@ public class MenuConsole {
                         + " | população estimada: " + territorio.getPopulacao()
         );
 
+        Sensor sensor = sensorEscolhido();
         System.out.print("Código de acesso: ");
         String codigo = scanner.nextLine();
 
@@ -175,7 +176,7 @@ public class MenuConsole {
         double critico = Double.parseDouble(valores[2].trim());
 
         territorio.alterarLimiares(codigo, atencao, alerta, critico);
-        ConfiguracaoSistema.getInstancia().configurar(atencao, alerta, critico);
+        ConfiguracaoSistema.getInstancia().configurar(sensor.retornarTipo(), atencao, alerta, critico);
 
         System.out.println("Limiares do território atualizados com sucesso.");
     }
@@ -189,12 +190,10 @@ public class MenuConsole {
                         + " | população estimada: " + territorio.getPopulacao()
         );
 
-        System.out.printf(
-                "Limiares: atenção %.2f | alerta %.2f | crítico %.2f%n",
-                territorio.getLimiteAtencao(),
-                territorio.getLimiteAlerta(),
-                territorio.getLimiteCritico()
-        );
+        sensores.values().forEach(sensor -> {
+            ConfiguracaoSistema.Limiares l = ConfiguracaoSistema.getInstancia().getLimiares(sensor.retornarTipo());
+            System.out.printf("%s: atenção %.2f | alerta %.2f | crítico %.2f%n", sensor.retornarTipo(), l.atencao(), l.alerta(), l.critico());
+        });
 
         System.out.println("Medições persistidas: " + servico.totalMedicoes());
         System.out.println("Alertas emitidos: " + servico.totalAlertas());

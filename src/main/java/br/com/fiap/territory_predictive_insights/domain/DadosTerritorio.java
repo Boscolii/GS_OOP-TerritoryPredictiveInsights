@@ -15,7 +15,7 @@ public class DadosTerritorio {
     }
     public void alterarLimiares(String codigo, double atencao, double alerta, double critico) {
         if (!codigoAcesso.equals(codigo)) throw new DadosInvalidosException("Código de acesso inválido.");
-        if (atencao < 0 || atencao >= alerta || alerta >= critico) throw new DadosInvalidosException("Limiares devem ser positivos e crescentes.");
+        if (!Double.isFinite(atencao) || !Double.isFinite(alerta) || !Double.isFinite(critico) || atencao < 0 || atencao >= alerta || alerta >= critico) throw new DadosInvalidosException("Limiares devem ser finitos, não negativos e crescentes.");
         limiteAtencao = atencao; limiteAlerta = alerta; limiteCritico = critico;
     }
     public String getRegiao() { return regiao; } public int getPopulacao() { return populacao; }

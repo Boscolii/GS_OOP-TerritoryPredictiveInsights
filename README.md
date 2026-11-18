@@ -2,6 +2,12 @@
 
 Projeto da Global Solution de POO no recorte de **clima local**. Sensores simulados de chuva, nível do rio e umidade do solo registram leituras, fazem previsões simples e emitem alertas para apoiar a prevenção de alagamentos.
 
+## Público beneficiado e decisão apoiada
+
+O projeto foi pensado para comunidades que vivem em áreas vulneráveis a alagamentos e para as equipes que acompanham essas regiões, como associações de bairro, organizações comunitárias e órgãos municipais. Moradores podem ser beneficiados indiretamente por uma identificação mais rápida de condições que mereçam atenção.
+
+O sistema apoia essas equipes na decisão de quando investigar uma situação, consultar outras fontes e avaliar ações preventivas conforme os protocolos locais. As leituras e os alertas são simulados e não substituem informações oficiais nem a avaliação das pessoas responsáveis.
+
 ## Como executar
 
 Use Java 21 e execute `./mvnw.cmd spring-boot:run` no Windows. O menu é de console. O banco H2 fica no diretório `data/territorio`, preservando histórico entre execuções. Para rodar os testes: `./mvnw.cmd test`.
@@ -16,10 +22,12 @@ Use Java 21 e execute `./mvnw.cmd spring-boot:run` no Windows. O menu é de cons
 
 ## Decisões da equipe
 
-- Foi escolhido o cenário de clima local porque chuva, nível do rio e umidade do solo possibilitam simular risco de alagamento com sensores coerentes.
-- Foi utilizado Spring Boot com Spring Data JPA e H2 em arquivo. Assim, o histórico permanece entre execuções e a correção pode ser feita sem instalar um banco externo.
-- As previsões foram mantidas simples e explicáveis: média móvel das cinco leituras mais recentes e comparação entre as duas últimas leituras.
-- Alertas são gerados somente quando a previsão ultrapassa um limiar configurado. Eles apoiam a decisão humana e não definem ações por conta própria.
+- **Recorte e sensores:** o grupo escolheu clima local e risco de alagamento. A simulação utiliza chuva, nível do rio e umidade do solo porque cada medida contribui com uma perspectiva diferente das condições monitoradas. As faixas e unidades adotadas são simplificações para o exercício.
+- **Persistência:** Spring Boot com Spring Data JPA e H2 em arquivo permite salvar medições e alertas e consultá-los após reiniciar, sem exigir a instalação de um servidor de banco separado. Os limiares são configurações em memória e retornam aos padrões quando o programa é encerrado.
+- **Previsões:** optou-se por cálculos simples de explicar: média das até cinco leituras mais recentes e extrapolação da diferença entre as duas últimas. O menu informa quando há menos de cinco leituras, pois uma amostra pequena reduz a confiança no resultado.
+- **Alertas:** cada tipo de sensor possui seus próprios limiares demonstrativos para atenção, alerta e crítico. A previsão é comparada com esses valores e o registro informa o sensor, o valor previsto e o limite atingido. Os limites não são parâmetros oficiais e não devem ser usados para decisões reais sem avaliação especializada.
+- **Organização e testes:** a Factory concentra a seleção da estratégia de previsão, enquanto o Singleton mantém os limiares usados na execução. As exceções personalizadas comunicam dados inválidos e indisponibilidade de fonte. Os testes verificam validações, cálculos e a emissão de alerta com repositório simulado.
+- **Interface:** foi escolhido um menu de console com `Scanner`, suficiente para simular leituras, consultar o histórico, gerar previsões e verificar alertas sem criar uma API ou interface gráfica.
 
 ## Divisão de tarefas
 

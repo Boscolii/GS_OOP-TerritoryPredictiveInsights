@@ -35,4 +35,4 @@ Uma previsão não deve ser apresentada como confiável com pouco histórico: um
 
 ## Uso de IA
 
-IA foi utilizada como apoio técnico durante o desenvolvimento, para esclarecer conceitos de Java, Spring Boot, JPA, padrões de projeto, testes unitários e organização da estrutura do projeto. Também auxiliou na análise de mensagens de
+IA foi utilizada para gerar e organizar partes do código e da documentação, além de auxiliar na análise de erros, na configuração do projeto e na execução dos testes.
